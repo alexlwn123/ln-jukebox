@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>ln-jukebox</title>
+        <title>Pleb Party</title>
         <h1>ln-jukebox</h1>
         <meta name="description" content="placeholder screen" />
         <link rel="icon" href="/favicon.ico" />
@@ -15,6 +15,9 @@ export default function Home() {
 
       <main className={styles.main}>
         <p>placeholder main</p>
+          <h1 className="text-base font-bold underline">
+              Hello world!
+          </h1>
       </main>
 
       <footer className={styles.footer}>
