@@ -1,9 +1,9 @@
-name: main
+name: deploy
 
 on:
   push:
     branches:
-      - master
+      - main
       - feature/cicd
     paths:
       - '**.js'
