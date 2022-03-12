@@ -144,4 +144,5 @@ sketch
 !.yarn/cache
 
 
+.env.local
 # End of https://www.toptal.com/developers/gitignore/api/nextjs,react,yarn
