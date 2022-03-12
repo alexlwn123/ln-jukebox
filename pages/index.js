@@ -3,6 +3,7 @@ import Image from 'next/image'
 // import { requestInvoice } from '../serviceRequests/Voltage'
 import styles from '../styles/Home.module.css'
 import { BitcoinIcon } from '@bitcoin-design/bitcoin-icons-react/filled'
+import { MusicNoteIcon } from '@heroicons/react/solid'
 
 export default function Home() {
   return (
@@ -17,7 +18,7 @@ export default function Home() {
       <main className={styles.main}>
         <p>placeholder main</p>
           <h1 className="text-base font-bold underline">
-              Hello world! <BitcoinIcon className="w-8 h-8 text-black" />
+              Hello world! <BitcoinIcon className="w-8 h-8 text-black" /> <MusicNoteIcon className="w-8 h-8 text-black" />
           </h1>
       </main>
 
