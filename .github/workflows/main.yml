@@ -1,0 +1,73 @@
+name: deploy
+
+on:
+  push:
+    branches:
+      - main
+      - feature/cicd
+    paths:
+      - '**.js'
+      - '**.ts'
+      - '**.tsx'
+      - 'src/**'
+      - 'content/**'
+      - '**.yaml'
+
+env:
+  PROJECT_ID: ${{ secrets.GCP_PROJECT }}
+  SERVICE: blog
+  REGION: us-east1
+  URL_MAP: ${{ secrets.GCP_URL_MAP }}
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: setup node
+      uses: actions/setup-node@v2
+      with:
+        node-version: '17.x'
+        cache: 'yarn'
+
+    - name: authenticate with GCP
+      id: auth
+      uses: google-github-actions/auth@v0.4.2
+      with:
+        credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v0.3.0
+      with:
+        project_id: ${{ env.PROJECT_ID }}
+
+    - name: Docker login on GCR
+      run: |
+        gcloud auth configure-docker --quiet
+
+
+    - name: Set docker image
+      id: image
+      run: echo "::set-output name=IMAGE::asia.gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}
+
+    - name: build docker image
+      run: | # yarn and yarn build will be running while building docker image
+        docker build -t ${{ steps.image.outputs.IMAGE }} . 
+
+    - name: docker push
+      run: |
+        docker push ${{ steps.image.outputs.IMAGE }}
+
+    - name: Deploy to Cloud Run
+      uses: google-github-actions/deploy-cloudrun@v0.6.0
+      with:
+        service: blog
+        image: ${{ steps.image.outputs.IMAGE }}
+        region: us-east1
+        no_traffic: false
