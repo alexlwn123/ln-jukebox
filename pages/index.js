@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
+// import { requestInvoice } from '../serviceRequests/Voltage'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
@@ -21,4 +22,6 @@ export default function Home() {
       </footer>
     </div>
   )
+
+  requestInvoice();
 }
