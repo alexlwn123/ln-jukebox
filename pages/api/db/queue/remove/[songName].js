@@ -1,4 +1,4 @@
-import db from '../../../../../firebase/db'
+import {db} from '../../../../../firebase/db'
 
 export default async function handler(req, res) {
   const {songName} = req.query;
