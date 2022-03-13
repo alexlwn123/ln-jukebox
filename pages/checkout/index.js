@@ -25,6 +25,17 @@ export default function Index(props) {
     }
   }, [query])
 
+  function copyInvoice() {
+    navigator.clipboard.writeText(invoice).then(
+      ()=>{
+        console.log("Copied to clipboard")
+      },
+      err=>{
+        console.log("An error occurred copying to clipboard")
+      }
+    )
+  }
+
   return (
     <div className="h-screen w-full">
       <Head>
@@ -50,7 +61,7 @@ export default function Index(props) {
           {!invoice ? 'One moment...' : invoice.substring(0,8) + ' ... ' + invoice.substring(invoice.length, invoice.length-8)}
         </p>
 
-        <Button text="Copy Invoice" icon="CopyIcon" />
+        <Button text="Copy Invoice" button icon="CopyIcon" onClick={copyInvoice} />
       </main>
       :
       <main className="flex flex-col items-center h-full w-full p-8 space-y-16">

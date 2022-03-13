@@ -15,6 +15,7 @@ export default function Button(props){
       { props.button ?
       <button
         type="button"
+        onClick={props.onClick}
         className="text-white border-solid border-2 border-white p-6 w-full flex flex-row justify-center items-center space-x-4 uppercase tracking-[0.5em]"
       >
         <span>{props.text}</span>
