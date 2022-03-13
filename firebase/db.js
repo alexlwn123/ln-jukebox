@@ -3,10 +3,9 @@ import admin from 'firebase-admin'
 import {Firestore, getFirestore, Timestamp, FieldValue }from 'firebase-admin/firestore';
 import App from 'next/app';
 import {Storage} from '@google-cloud/storage';
-
-
+const cred = process.env.GOOGLE_APPLICATION_CREDENTIAL
 const credential = JSON.parse(
-  Buffer.from(process.env.GOOGLE_APPLICATION_CREDENTIALS, 'base64').toString()
+  Buffer.from(cred, 'base64').toString()
 );
 
 try {
