@@ -17,7 +17,9 @@ export default function SearchResult(props) {
           song: props.song,
           artist: props.artist,
           album: props.album,
-          id: props.id
+          id: props.id,
+          songUri: props.songUri,
+          songFullName: props.songFullName
         }
       }}
       passHref

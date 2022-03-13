@@ -6,83 +6,21 @@ import SearchResult from "../../components/SearchResult";
 
 export default function Index() {
   const [playlist, setPlaylist] = React.useState([]);
-
-  function updatePlaylist(){
-    setPlaylist([
-      {
-        artist: 'Rage Against the Machine',
-        song: 'Freedom',
-        album: 'Rage Against the Machine',
-        id: 'xxxx-xxxx-xxxx-xxxx',
-        amount: 2000
-      },
-      {
-        artist: 'Rage Against the Machine',
-        song: 'Freedom (Live in Mexico City)',
-        album: 'Rage Against the Machine Live',
-        id: 'xxxx-xxxx-xxxx-xxxx',
-        amount: 1500
-      },
-      {
-        artist: 'Zac Brown Band',
-        song: 'Free',
-        album: 'Zac Brown Does America',
-        id: 'xxxx-xxxx-xxxx-xxxx',
-        amount: 989
-      },
-      {
-        artist: 'D-Steez',
-        song: 'Free',
-        album: 'Sick album title',
-        id: 'xxxx-xxxx-xxxx-xxxx',
-        amount: 600
-      },
-      {
-        artist: 'H.E.R.',
-        song: 'Free',
-        album: "(It's a spoof of H.I.M, I think, but not sure)",
-        id: 'xxxx-xxxx-xxxx-xxxx',
-        amount: 580
-      },
-      {
-        artist: 'H.E.R.',
-        song: 'Free',
-        album: "(It's a spoof of H.I.M, I think, but not sure)",
-        id: 'xxxx-xxxx-xxxx-xxxx',
-        amount: 400
-      },
-      {
-        artist: 'H.E.R.',
-        song: 'Free',
-        album: "(It's a spoof of H.I.M, I think, but not sure)",
-        id: 'xxxx-xxxx-xxxx-xxxx',
-        amount: 200
-      },
-      {
-        artist: 'H.E.R.',
-        song: 'Free',
-        album: "(It's a spoof of H.I.M, I think, but not sure)",
-        id: 'xxxx-xxxx-xxxx-xxxx',
-        amount: 200
-      },
-      {
-        artist: 'H.E.R.',
-        song: 'Free',
-        album: "(It's a spoof of H.I.M, I think, but not sure)",
-        id: 'xxxx-xxxx-xxxx-xxxx',
-        amount: 200
-      },
-      {
-        artist: 'H.E.R.',
-        song: 'Free',
-        album: "(It's a spoof of H.I.M, I think, but not sure)",
-        id: 'xxxx-xxxx-xxxx-xxxx',
-        amount: 200
-      },
-    ]);
-  }
   
-  if(playlist.length === 0)  updatePlaylist();
+
+  React.useEffect( async ()=> {
+    if(playlist.length === 0) {
+      fetch('/api/db/song/list')
+        .then(async (response) => {
+          const res = await response.json()
+          console.log(res)
+          setPlaylist(res)
+          console.log('playlist is')
+          console.log(playlist)
+        });
+    }
+    return ()=>{}
+  }, [playlist]);
   
   return (
     <div className="h-screen">
@@ -94,6 +32,12 @@ export default function Index() {
 
       <main className="flex flex-row">
         <div className="basis-6/12 h-screen">
+          <div className="bg-none">
+            <p>Add your song</p>
+            <img src="pleb-fm-qr.png" alt="QR for pleb.fm" />
+            <p>pleb.fm</p>
+          </div>
+          
           <video className="w-full h-screen object-cover" loop autoPlay muted>
             <source src="ln-jukebox-hero.mp4" type="video/mp4" />
           </video>
@@ -105,9 +49,15 @@ export default function Index() {
             </div>
           </header>
           
-          {playlist.map((entry, index) => (
-            <PlaylistItem key={index} artist={entry.artist} song={entry.song} album={entry.album} id={entry.id} amount={entry.amount} />
-          ))}
+          {playlist.length > 0 ?
+            playlist.map((entry, index) => {
+              let [artist, song] = entry.songName.split('_');
+              artist = artist.replaceAll('-', ' ');
+              song = song.replaceAll('-', ' ')||song;
+              return <PlaylistItem key={index} artist={artist} song={song} album={entry.album}
+                                   id={entry.id} amount={entry.amount}/>
+            })
+          :''}
         </div>
       </main>
     </div>

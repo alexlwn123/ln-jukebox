@@ -18,13 +18,10 @@ export default function Home() {
     fetch('/api/db/song/list')
       .then(async (response) => {
         const res = await response.json()
-        
-        console.log(e)
-        
+        console.log(res)
         res.forEach(()=>{
           
         })
-        
         
         let foundSongs = res.filter((song) => {
           let songl = song.songName.toLowerCase();
@@ -81,7 +78,7 @@ export default function Home() {
             let [artist, song] = result.songName.split('_');
             artist = artist.replaceAll('-', ' ');
             song = song.replaceAll('-', ' ')||song;
-            return <SearchResult key={index} artist={artist} song={song} album={'Greatest Hits'} id={result.id}/>
+            return <SearchResult key={index} artist={artist} song={song} album={'Greatest Hits'} id={result.id} songUri={result.songUri} songFullName={result.songName} />
           })}
         </div>
         : ''}
