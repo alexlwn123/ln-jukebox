@@ -1,23 +1,23 @@
 import lndService from 'ln-service'
 
+// Initialize VoltageLND authentication
+// {lnd} object is for touching the voltage GRPC API
 export default async function handler(req, res) {
   const { lnd } = lndService.authenticatedLndGrpc({
-    // cert: 'base64 encoded tls.cert',
-    macaroon: process.env.MACAROON,
-    socket: process.env.SOCKET,
-})
-
-// Promise syntax
-const nodePublicKey = (await lndService.getWalletInfo({lnd})).public_key; 
-
-  //export function requestInvoice() {
-  //  console.log("test")
-  //}
-  //console.log(lnd);
-  console.log(nodePublicKey);
+  macaroon: process.env.MACAROON,
+  socket: process.env.SOCKET,
+  })
+  console.log("we reached voltage.js");
   res.status(200).json({ name: 'John Doe' })
+  makeInvoice(lnd, 1000);
 }
 
-
-
-//export default lnd
+// Create an invoice for a set amount of sats
+// @param lnd: Authenticated LND GRPC
+// @param amount: amount of the invoice in Satoshis
+// @return: string for LND invoice
+export async function makeInvoice(lnd, amount) {
+  const {createInvoice} = require('ln-service');
+  const invoice = await createInvoice({lnd, "amount":amount});
+  return invoice.request;
+}
