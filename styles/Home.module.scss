@@ -1,0 +1,7 @@
+.main {
+  @apply flex flex-col justify-center items-center h-full p-8 space-y-16;
+}
+
+.searchActive {
+  @apply flex flex-col items-center h-full p-8 space-y-6;
+}
