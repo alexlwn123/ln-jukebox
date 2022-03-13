@@ -16,5 +16,5 @@ export default async function handler(req, res) {
   const {createInvoice} = require('ln-service');
   const invoice = await createInvoice({lnd, "mtokens":  req.query.amount * 1000});
   console.log(invoice);
-  res.status(200).json(invoice.request);
+  res.status(200).json(invoice);
 }

@@ -13,17 +13,55 @@ export default function Index(props) {
   const [songsAhead, setSongsAhead] = React.useState(0);
   
   const [invoice, setInvoice] = React.useState('');
-
+  
+  const [invoiceId, setInvoiceId] = React.useState('');
+  
+  const [elapsed, setElapsed] = React.useState(1);
+  
+  const [invoicePaid, setInvoicePaid] = React.useState(false);
+  
+  
   React.useEffect(() => {
     if(query && query.amount) {
       fetch('/api/lnd/makeInvoice/' + query.amount)
-        .then(response => response.text())
-        .then(newInvoice => setInvoice(newInvoice));
+        .then(async (response) => {
+          const res = await response.json()
+          setInvoice( res.request )
+          setInvoiceId( res.id )
+        });
     }
     return () => {
       
     }
   }, [query])
+
+  React.useEffect(() => {
+    if(invoiceId && !checkoutComplete) {
+      const timer = setInterval(() => {
+        setElapsed(elapsed+1);
+        console.log(elapsed);
+        fetch('/api/lnd/fetchInvoice/' + invoiceId)
+          .then(async (response) => {
+            const res = await response.json()
+            console.log(typeof res.is_confirmed)
+            if(res.is_confirmed) {
+              console.log('it is confirmed')
+              console.log(typeof res.is_confirmed)
+              console.log(res.is_confirmed)
+              await setInvoicePaid(true);
+              console.log(invoicePaid)
+              setCheckoutComplete(true);
+            }
+          });
+      }, 1000);
+    }
+    else if(invoicePaid) {
+      console.log('invoice is paid mofo')
+      setCheckoutComplete(true);
+    }
+    
+    return () => clearInterval(timer);
+  }, [invoiceId, invoicePaid, setCheckoutComplete, elapsed])
 
   function copyInvoice() {
     navigator.clipboard.writeText(invoice).then(
@@ -76,7 +114,7 @@ export default function Index(props) {
           There <span> {songsAhead > 1 || songsAhead === 0 ? 'are' : 'is'} {songsAhead} {songsAhead > 1 || songsAhead === 0 ? 'songs' : 'song'}</span> ahead of it.
         </p>
 
-        <Button text="Song Queue" icon="MusicNoteIcon" button href="/leaderboard" />
+        <Button text="Song Queue" icon="MusicNoteIcon" href="/leaderboard" />
       </main>
       }
         
