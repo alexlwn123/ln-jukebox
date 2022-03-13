@@ -76,7 +76,7 @@ export default function Index(props) {
           There <span> {songsAhead > 1 || songsAhead === 0 ? 'are' : 'is'} {songsAhead} {songsAhead > 1 || songsAhead === 0 ? 'songs' : 'song'}</span> ahead of it.
         </p>
 
-        <Button text="Song Queue" icon="MusicNoteIcon" />
+        <Button text="Song Queue" icon="MusicNoteIcon" button href="/leaderboard" />
       </main>
       }
         
