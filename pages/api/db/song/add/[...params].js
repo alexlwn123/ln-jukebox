@@ -20,5 +20,4 @@ export default async function handler(req, res) {
     const newRef = await (await docRef.get()).data();
     console.log(newRef);
     res.status(200).json({success: true, song: newRef });
-
 }
