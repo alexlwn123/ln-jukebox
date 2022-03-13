@@ -1,4 +1,30 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Pleb.FM
+
+Try it out (kinda) at  [pleb.fm](https://pleb.fm)
+
+This is the first crowd-funded DJ powered by bitcoin lightning! It's an ongoing auction to decide the next song in the queue.
+
+## Routes
+ - /leaderboard
+ - 
+
+## Tech Stack
+ - Next.js
+ - Voltage
+ - Spotify API (wip)
+ - GCP Firestore to store songs
+
+## TODO
+ - Fix Leaderboard
+ - Fix (implemnt) Music Player
+ - Fix lnpayments on prod 
+ - Improve mobile UX
+ - Actually secure it
+ 
+
+
+---- 
+Next JS Stuff
 
 ## Getting Started
 
