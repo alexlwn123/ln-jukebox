@@ -78,7 +78,7 @@ export default function Home() {
         <div>
           {searchResults.map((result, index) => (
             <SearchResult key={index} artist={result.artist} song={result.song} />
-          ))}x
+          ))}
         </div>
         : ''}
       </main>
