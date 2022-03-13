@@ -1,12 +1,13 @@
 # Pleb.FM
 
-Try it out (kinda) at  [pleb.fm](https://pleb.fm)
+Try it out (kinda) at [pleb.fm](https://pleb.fm)
 
 This is the first crowd-funded DJ powered by bitcoin lightning! It's an ongoing auction to decide the next song in the queue.
 
-## Routes
- - /leaderboard
- - 
+## Screens
+ - [/](https://pleb.fm) - landing page to submit bids
+ - [/leaderboard](https://pleb.fm/leaderboard) - Live View of Active Bids
+ - [Figma Screens](https://www.figma.com/file/BG8ckeH3RYYPEFuzDDSSpZ/ln-jukebox?node-id=2%3A67) - UX Design
 
 ## Tech Stack
  - Next.js
@@ -21,8 +22,7 @@ This is the first crowd-funded DJ powered by bitcoin lightning! It's an ongoing 
  - Improve mobile UX
  - Actually secure it
  
-
-
+ 
 ---- 
 Next JS Stuff
 
