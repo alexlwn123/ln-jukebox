@@ -1,25 +1,40 @@
 import Head from 'next/head'
-import Image from 'next/image'
 // import { requestInvoice } from '../serviceRequests/Voltage'
-import styles from '../styles/Home.module.css'
+import { MusicNoteIcon } from '@heroicons/react/outline'
+import PlebPartyLogo from '../components/PlebPartyLogo';
 
 export default function Home() {
   return (
-    <div className={styles.container}>
+    <div className="h-screen">
       <Head>
-        <title>ln-jukebox</title>
-        <h1>ln-jukebox</h1>
+        <title>Pleb Party</title>
         <meta name="description" content="placeholder screen" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-        <p>placeholder main</p>
+      <main className="flex flex-col justify-center items-center h-full p-8 space-y-16">
+        <PlebPartyLogo className="w-full" />
+        
+        <div className="space-y-2">
+          <label className="uppercase tracking-widest text-white text-xs">Search for a Song</label>
+          
+          <input
+            type="text"
+            placeholder="Bitcoin Killed the Fiat Star&hellip;"
+            className="p-4 w-full bg-white/[0.1] border-solid border-2 border-white text-white"
+          />
+        </div>
+        
+        <ol className="list-decimal text-white space-y-4 ml-4">
+          <li>Select your song</li>
+          <li>Pay for it with bitcoin</li>
+          <li>Outbid other plebs to send your song to the top of the queue</li>
+        </ol>
+        
+        <button typeof="button" className="text-white border-solid border-2 border-white p-6 w-full flex flex-row justify-center items-center space-x-4 uppercase tracking-[0.5em]">
+          <span>Song Queue</span> <MusicNoteIcon className="w-6 h-6 text-white" />
+        </button>
       </main>
-
-      <footer className={styles.footer}>
-        <p>placeholder footer</p>
-      </footer>
     </div>
   )
 
