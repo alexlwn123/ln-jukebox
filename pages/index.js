@@ -43,7 +43,7 @@ export default function Home() {
   return (
     <div className="h-screen">
       <Head>
-        <title>Pleb Party</title>
+        <title>PlebFM</title>
         <meta name="description" content="placeholder screen" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
