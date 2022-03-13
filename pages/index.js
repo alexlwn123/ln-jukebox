@@ -15,38 +15,30 @@ export default function Home() {
   function handleSearchChange(e){
     if(e.length > 0) setSearchActive(true)
     else setSearchActive(false)
-    setSearchResults([
-      {
-        artist: 'Rage Against the Machine',
-        song: 'Freedom',
-        album: 'Rage Against the Machine',
-        id: 'xxxx-xxxx-xxxx-xxxx'
-      },
-      {
-        artist: 'Rage Against the Machine',
-        song: 'Freedom (Live in Mexico City)',
-        album: 'Rage Against the Machine Live',
-        id: 'xxxx-xxxx-xxxx-xxxx'
-      },
-      {
-        artist: 'Zac Brown Band',
-        song: 'Free',
-        album: 'Zac Brown Does America',
-        id: 'xxxx-xxxx-xxxx-xxxx'
-      },
-      {
-        artist: 'D-Steez',
-        song: 'Free',
-        album: 'Sick album title',
-        id: 'xxxx-xxxx-xxxx-xxxx'
-      },
-      {
-        artist: 'H.E.R.',
-        song: 'Free',
-        album: "(It's a spoof of H.I.M, I think, but not sure)",
-        id: 'xxxx-xxxx-xxxx-xxxx'
-      },
-    ]);
+    fetch('/api/db/song/list')
+      .then(async (response) => {
+        const res = await response.json()
+        
+        console.log(e)
+        
+        res.forEach(()=>{
+          
+        })
+        
+        
+        let foundSongs = res.filter((song) => {
+          let songl = song.songName.toLowerCase();
+          let searchl = e.toLowerCase();
+          if( songl.indexOf(searchl) !== -1) {
+            return song
+          }
+        })
+        
+        
+        setSearchResults(foundSongs)
+        console.log('playlist is')
+        console.log(searchResults)
+      });
   }
   
   return (
@@ -85,9 +77,12 @@ export default function Home() {
 
         {searchActive ?
         <div>
-          {searchResults.map((result, index) => (
-            <SearchResult key={index} artist={result.artist} song={result.song} album={result.album} id={result.id} />
-          ))}
+          {searchResults.map((result, index) => {
+            let [artist, song] = result.songName.split('_');
+            artist = artist.replaceAll('-', ' ');
+            song = song.replaceAll('-', ' ')||song;
+            return <SearchResult key={index} artist={artist} song={song} album={'Greatest Hits'} id={result.id}/>
+          })}
         </div>
         : ''}
       </main>
