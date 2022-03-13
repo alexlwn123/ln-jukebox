@@ -18,7 +18,7 @@ export default function Home() {
       <main className={styles.main}>
         <p>placeholder main</p>
           <h1 className="text-base font-bold underline">
-              Hello world! <BitcoinIcon className="w-8 h-8 text-black" /> <MusicNoteIcon className="w-8 h-8 text-black" />
+              Hello world! <BitcoinIcon className="w-8 h-8 text-lnj-purple" /> <MusicNoteIcon className="w-8 h-8 text-lnj-purple-dark" />
           </h1>
       </main>
 
