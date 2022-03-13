@@ -6,6 +6,7 @@ import React from "react";
 import styles from '../styles/Home.module.scss'
 import InputText from "../components/InputText";
 import SearchResult from "../components/SearchResult";
+import Button from "../components/Button";
 
 
 export default function Home() {
@@ -69,9 +70,7 @@ export default function Home() {
           : ''}
   
           {!searchActive ?
-          <button typeof="button" className="text-white border-solid border-2 border-white p-6 w-full flex flex-row justify-center items-center space-x-4 uppercase tracking-[0.5em]">
-            <span>Song Queue</span> <MusicNoteIcon className="w-6 h-6 text-white" />
-          </button>
+          <Button text="Song Queue" icon="MusicNoteIcon" />
           : ''}
         </div>
 

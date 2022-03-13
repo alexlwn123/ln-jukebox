@@ -9,7 +9,7 @@ body {
   padding: 0;
   margin: 0;
   font-family: 'Manrope', sans-serif;
-  @apply bg-gradient-to-b from-lnj-purple to-lnj-purple-dark;
+  @apply bg-gradient-to-b from-lnj-purple to-lnj-purple-dark text-white;
 }
 
 a {
