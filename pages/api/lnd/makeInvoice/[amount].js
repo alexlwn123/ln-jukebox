@@ -6,7 +6,8 @@ import lndService from 'ln-service'
 // @param obj lnd: Authenticated LND GRPC
 // @param int amount: amount of the invoice in Satoshis
 // @return: string for LND invoice
-export async function makeInvoice(lnd, amount) {
+export default async function handler(req, res) {
+    const { amount } = req.query;
     const { lnd } = lndService.authenticatedLndGrpc({
       macaroon: process.env.MACAROON,
       socket: process.env.SOCKET,
@@ -14,5 +15,6 @@ export async function makeInvoice(lnd, amount) {
   
     const {createInvoice} = require('ln-service');
     const invoice = await createInvoice({lnd, "amount":amount});
-    return invoice.request;
+    console.log(invoice);
+    res.status(200).json(invoice.request);
   }
