@@ -21,7 +21,7 @@ export default function Index() {
       <main className="flex flex-col items-center h-full w-full p-8 space-y-16">
         <Nav text="Search" />
         
-        <div className="drop-shadow-md space-y-2">
+        <div className="drop-shadow-md space-y-2 w-full text-left">
           <h1 className="text-6xl">Freedom</h1>
           
           <p className="text-2xl font-bold">Rage Against the Machine</p>

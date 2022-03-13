@@ -13,7 +13,12 @@ module.exports = {
       "lnj-orange": "#FFCC84",
       ...colors
     },
-    extend: {},
+    extend: {
+      fontFamily: {
+        body: ["Manrope", "sans-serif"],
+        mono: ["IBM Plex Mono", "monospace"]
+      }
+    },
   },
   plugins: [],
 }
