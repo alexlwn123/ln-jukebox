@@ -1,6 +1,4 @@
-import "../styles/globals.css";
-
-function Auction({}) {
+function Auction() {
   return <h1>Auction Page</h1>;
 }
 
