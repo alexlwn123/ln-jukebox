@@ -1,14 +1,14 @@
 import { initializeApp, applicationDefault } from 'firebase-admin/app';
 import admin from 'firebase-admin'
-import { getFirestore, Timestamp, FieldValue }from 'firebase-admin/firestore';
+import {Firestore, getFirestore, Timestamp, FieldValue }from 'firebase-admin/firestore';
 
-const serviceAccount = process.env.GOOGLE_APPLICATION_CREDENTIALS;
-try {
-  !admin.apps.length ? initializeApp({
-    credential: applicationDefault()
-  }): admin.app();
-} catch (e) {
-  console.log(e)
-}
-const db = getFirestore();
+const credential = JSON.parse(
+  Buffer.from(process.env.GOOGLE_APPLICATION_CREDENTIALS, 'base64').toString()
+);
+
+const db = new Firestore({
+  projectId: "ln-jukebox",
+  credentials: credential 
+});
+
 export default db;
