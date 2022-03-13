@@ -35,8 +35,8 @@ export async function fetchInvoice(lnd, id) {
 // Fetches an array of all invoices
 // @param lnd: Authenticated LND GRPC
 // @param id: amount of the invoice in Satoshis
-// @return bool status: status if invoice has been paid string for LND invoice
-export async function fetchInvoices(lnd, id) {
+// @return invoices array: list of all invoices
+export async function fetchInvoices(lnd) {
   const {getInvoices} = require('ln-service');
   const {invoices} = await getInvoices({lnd});
   return invoices;
