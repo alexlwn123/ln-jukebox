@@ -1,13 +1,10 @@
 import Head from 'next/head'
-// import { requestInvoice } from '../serviceRequests/Voltage'
-import { MusicNoteIcon } from '@heroicons/react/outline'
 import PlebPartyLogo from '../components/PlebPartyLogo';
 import React from "react";
 import styles from '../styles/Home.module.scss'
 import InputText from "../components/InputText";
 import SearchResult from "../components/SearchResult";
 import Button from "../components/Button";
-
 
 export default function Home() {
   const [searchActive, setSearchActive] = React.useState(false);
@@ -19,23 +16,33 @@ export default function Home() {
     setSearchResults([
       {
         artist: 'Rage Against the Machine',
-        song: 'Freedom'
+        song: 'Freedom',
+        album: 'Rage Against the Machine',
+        id: 'xxxx-xxxx-xxxx-xxxx'
       },
       {
         artist: 'Rage Against the Machine',
-        song: 'Freedom (Live in Mexico City)'
+        song: 'Freedom (Live in Mexico City)',
+        album: 'Rage Against the Machine Live',
+        id: 'xxxx-xxxx-xxxx-xxxx'
       },
       {
         artist: 'Zac Brown Band',
-        song: 'Free'
+        song: 'Free',
+        album: 'Zac Brown Does America',
+        id: 'xxxx-xxxx-xxxx-xxxx'
       },
       {
         artist: 'D-Steez',
-        song: 'Free'
+        song: 'Free',
+        album: 'Sick album title',
+        id: 'xxxx-xxxx-xxxx-xxxx'
       },
       {
         artist: 'H.E.R.',
-        song: 'Free'
+        song: 'Free',
+        album: "(It's a spoof of H.I.M, I think, but not sure)",
+        id: 'xxxx-xxxx-xxxx-xxxx'
       },
     ]);
   }
@@ -70,14 +77,14 @@ export default function Home() {
           : ''}
   
           {!searchActive ?
-          <Button text="Song Queue" icon="MusicNoteIcon" />
+          <Button text="Song Queue" icon="MusicNoteIcon" button />
           : ''}
         </div>
 
         {searchActive ?
         <div>
           {searchResults.map((result, index) => (
-            <SearchResult key={index} artist={result.artist} song={result.song} />
+            <SearchResult key={index} artist={result.artist} song={result.song} album={result.album} id={result.id} />
           ))}
         </div>
         : ''}

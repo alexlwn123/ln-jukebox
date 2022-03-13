@@ -3,13 +3,32 @@ import Nav from "../../components/Nav";
 import InputNumber from "../../components/InputNumber";
 import Button from "../../components/Button";
 import React from "react";
+import Link from "next/link";
+import {useRouter} from "next/router";
 
 export default function Index() {
   const [bidDefined, setBidDefined] = React.useState(false);
+  const [amount, setAmount] = React.useState(0);
+  const [song, setSong] = React.useState('---');
+  const [artist, setArtist] = React.useState('---');
+  const [album, setAlbum] = React.useState('---');
+  const [songId, setSongId] = React.useState('');
+  const {query} = useRouter();
   
   function handleSatsInput(e){
-    if(e.target.value > 0) setBidDefined(true);
+    if(e > 0) setBidDefined(true);
+    setAmount(e);
   }
+  
+  React.useEffect(()=>{
+    if(query){
+      setSong(query.song);
+      setArtist(query.artist);
+      setAlbum(query.album);
+      setSongId(query.id);
+    }
+    return () => {}
+  }, [query]);
   
   return (
     <div className="h-screen w-full">
@@ -22,16 +41,18 @@ export default function Index() {
         <Nav text="Search" />
         
         <div className="drop-shadow-md space-y-2 w-full text-left">
-          <h1 className="text-6xl">Freedom</h1>
+          <h1 className="text-6xl">{song}</h1>
           
-          <p className="text-2xl font-bold">Rage Against the Machine</p>
+          <p className="text-2xl font-bold">{artist}</p>
           
-          <p>Rage Against the Machine</p>
+          <p>{album}</p>
         </div>
         
         <InputNumber value="" parentCallback={handleSatsInput} />
         
-        <Button text="Checkout" icon="CartIcon" active={bidDefined} />
+        <Link href={{pathname: "/checkout", query: {amount, song, artist, album, songId}}} passHref>
+          <Button text="Checkout" icon="CartIcon" active={bidDefined} />
+        </Link>
       </main>
     </div>
   )

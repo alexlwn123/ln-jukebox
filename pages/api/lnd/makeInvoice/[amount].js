@@ -7,14 +7,14 @@ import lndService from 'ln-service'
 // @param int amount: amount of the invoice in Satoshis
 // @return: string for LND invoice
 export default async function handler(req, res) {
-    const { amount } = req.query;
-    const { lnd } = lndService.authenticatedLndGrpc({
-      macaroon: process.env.MACAROON,
-      socket: process.env.SOCKET,
-    })
-  
-    const {createInvoice} = require('ln-service');
-    const invoice = await createInvoice({lnd, "amount":amount});
-    console.log(invoice);
-    res.status(200).json(invoice.request);
-  }
+  const { amount } = req.query.amount;
+  const { lnd } = lndService.authenticatedLndGrpc({
+    macaroon: process.env.MACAROON,
+    socket: process.env.SOCKET,
+  })
+
+  const {createInvoice} = require('ln-service');
+  const invoice = await createInvoice({lnd, "mtokens":  req.query.amount * 1000});
+  console.log(invoice);
+  res.status(200).json(invoice.request);
+}

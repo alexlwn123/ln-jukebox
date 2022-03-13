@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 export default function SearchResult(props) {
   const [value, setValue] = React.useState(props.value ? props.value : '');
@@ -9,8 +10,21 @@ export default function SearchResult(props) {
   }
 
   return (
-    <div className="bg-gradient-to-b from-lnj-purple to-lnj-purple-dark w-full text-white text-md p-4">
-      <p className="drop-shadow-md">{props.song} - {props.artist}</p>
-    </div>
+    <Link
+      href={{
+        pathname: "/bid",
+        query: {
+          song: props.song,
+          artist: props.artist,
+          album: props.album,
+          id: props.id
+        }
+      }}
+      passHref
+    >
+      <div className="bg-gradient-to-b from-lnj-purple to-lnj-purple-dark w-full text-white text-md p-4">
+        <p className="drop-shadow-md">{props.song} - {props.artist}</p>
+      </div>
+    </Link>
   )
 }

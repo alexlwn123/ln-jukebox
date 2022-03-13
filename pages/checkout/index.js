@@ -1,17 +1,39 @@
 import Head from 'next/head'
 import Nav from "../../components/Nav";
-import InputNumber from "../../components/InputNumber";
 import Button from "../../components/Button";
 import React from "react";
 import {MusicNoteIcon} from "@heroicons/react/outline";
+import {useRouter} from "next/router";
 
-export default function Index() {
+export default function Index(props) {
+  const {query} = useRouter();
+  
   const [checkoutComplete, setCheckoutComplete] = React.useState(false);
   
   const [songsAhead, setSongsAhead] = React.useState(0);
+  
+  const [invoice, setInvoice] = React.useState('');
 
-  function handleSatsInput(e){
-    if(e.target.value > 0) setBidDefined(true);
+  React.useEffect(() => {
+    if(query && query.amount) {
+      fetch('/api/lnd/makeInvoice/' + query.amount)
+        .then(response => response.text())
+        .then(newInvoice => setInvoice(newInvoice));
+    }
+    return () => {
+      
+    }
+  }, [query])
+
+  function copyInvoice() {
+    navigator.clipboard.writeText(invoice).then(
+      ()=>{
+        console.log("Copied to clipboard")
+      },
+      err=>{
+        console.log("An error occurred copying to clipboard")
+      }
+    )
   }
 
   return (
@@ -23,21 +45,23 @@ export default function Index() {
       </Head>
       { !checkoutComplete ?
       <main className="flex flex-col items-center h-full w-full p-8 space-y-16">
-        <Nav text="Bid Details" />
+        <Nav text="Bid Details" href="/bid" />
 
         <div className="drop-shadow-md space-y-2 w-full text-left">
-          <h1 className="text-6xl">Freedom</h1>
+          <h1 className="text-6xl">{query.song}</h1>
 
-          <p className="text-2xl font-bold">Rage Against the Machine</p>
+          <p className="text-2xl font-bold">{query.artist}</p>
 
-          <p>Rage Against the Machine</p>
+          <p>{query.album}</p>
         </div>
 
-        <p className="text-4xl text-left w-full">1500 sats</p>
+          <p className="text-4xl text-left w-full">{query.amount} sats</p>
         
-        <p className="font-mono text-2xl text-left w-full">lnbc10u ... 0spjazup6</p>
+        <p className="font-mono text-2xl text-left w-full wrap">
+          {!invoice ? 'One moment...' : invoice.substring(0,8) + ' ... ' + invoice.substring(invoice.length, invoice.length-8)}
+        </p>
 
-        <Button text="Copy Invoice" icon="CopyIcon" />
+        <Button text="Copy Invoice" button icon="CopyIcon" onClick={copyInvoice} />
       </main>
       :
       <main className="flex flex-col items-center h-full w-full p-8 space-y-16">
