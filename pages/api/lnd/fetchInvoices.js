@@ -5,7 +5,7 @@ import lndService from 'ln-service'
 // Fetches an array of all invoices
 // @param lnd: Authenticated LND GRPC
 // @return invoices array: list of all invoices
-export async function fetchInvoices(lnd) {
+export default async function handler(req, res) {
     const { lnd } = lndService.authenticatedLndGrpc({
       macaroon: process.env.MACAROON,
       socket: process.env.SOCKET,
@@ -13,5 +13,6 @@ export async function fetchInvoices(lnd) {
     
     const {getInvoices} = require('ln-service');
     const {invoices} = await getInvoices({lnd});
-    return invoices;
+    console.log(invoices);
+    res.status(200).json(invoices);
   }

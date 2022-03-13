@@ -6,7 +6,7 @@ import React from "react";
 import styles from '../styles/Home.module.scss'
 import InputText from "../components/InputText";
 import SearchResult from "../components/SearchResult";
-
+import Button from "../components/Button";
 
 export default function Home() {
   const [searchActive, setSearchActive] = React.useState(false);
@@ -18,23 +18,33 @@ export default function Home() {
     setSearchResults([
       {
         artist: 'Rage Against the Machine',
-        song: 'Freedom'
+        song: 'Freedom',
+        album: 'Rage Against the Machine',
+        id: 'xxxx-xxxx-xxxx-xxxx'
       },
       {
         artist: 'Rage Against the Machine',
-        song: 'Freedom (Live in Mexico City)'
+        song: 'Freedom (Live in Mexico City)',
+        album: 'Rage Against the Machine Live',
+        id: 'xxxx-xxxx-xxxx-xxxx'
       },
       {
         artist: 'Zac Brown Band',
-        song: 'Free'
+        song: 'Free',
+        album: 'Zac Brown Does America',
+        id: 'xxxx-xxxx-xxxx-xxxx'
       },
       {
         artist: 'D-Steez',
-        song: 'Free'
+        song: 'Free',
+        album: 'Sick album title',
+        id: 'xxxx-xxxx-xxxx-xxxx'
       },
       {
         artist: 'H.E.R.',
-        song: 'Free'
+        song: 'Free',
+        album: "(It's a spoof of H.I.M, I think, but not sure)",
+        id: 'xxxx-xxxx-xxxx-xxxx'
       },
     ]);
   }
@@ -42,7 +52,7 @@ export default function Home() {
   return (
     <div className="h-screen">
       <Head>
-        <title>Pleb Party</title>
+        <title>PlebFM</title>
         <meta name="description" content="placeholder screen" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -69,16 +79,14 @@ export default function Home() {
           : ''}
   
           {!searchActive ?
-          <button typeof="button" className="text-white border-solid border-2 border-white p-6 w-full flex flex-row justify-center items-center space-x-4 uppercase tracking-[0.5em]">
-            <span>Song Queue</span> <MusicNoteIcon className="w-6 h-6 text-white" />
-          </button>
+          <Button text="Song Queue" icon="MusicNoteIcon" button />
           : ''}
         </div>
 
         {searchActive ?
         <div>
           {searchResults.map((result, index) => (
-            <SearchResult key={index} artist={result.artist} song={result.song} />
+            <SearchResult key={index} artist={result.artist} song={result.song} album={result.album} id={result.id} />
           ))}
         </div>
         : ''}
