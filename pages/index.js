@@ -2,6 +2,9 @@ import Head from 'next/head'
 // import { requestInvoice } from '../serviceRequests/Voltage'
 import { MusicNoteIcon } from '@heroicons/react/outline'
 import PlebPartyLogo from '../components/PlebPartyLogo';
+//import Butterchurn from '../components/Butterchurn';
+import PlayerVisualizer from '../components/Visualizer';
+import React from 'react';
 
 export default function Home() {
   return (
@@ -37,6 +40,4 @@ export default function Home() {
       </main>
     </div>
   )
-
-  requestInvoice();
 }
