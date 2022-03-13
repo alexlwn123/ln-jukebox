@@ -11,6 +11,8 @@
   "dependencies": {
     "@bitcoin-design/bitcoin-icons-react": "^0.1.9",
     "axios": "^0.26.1",
+    "butterchurn": "^2.6.7",
+    "butterchurn-presets": "^2.4.7",
     "firebase-admin": "^10.0.2",
     "http2": "^3.3.7",
     "ln-service": "^53.9.3",

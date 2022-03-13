@@ -7,6 +7,7 @@ import styles from '../styles/Home.module.scss'
 import InputText from "../components/InputText";
 import SearchResult from "../components/SearchResult";
 
+
 export default function Home() {
   const [searchActive, setSearchActive] = React.useState(false);
   const [searchResults, setSearchResults] = React.useState([]);
@@ -84,6 +85,4 @@ export default function Home() {
       </main>
     </div>
   )
-
-  requestInvoice();
 }
