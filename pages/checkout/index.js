@@ -38,11 +38,11 @@ export default function Index(props) {
         <Nav text="Bid Details" href="/bid" />
 
         <div className="drop-shadow-md space-y-2 w-full text-left">
-          <h1 className="text-6xl">Freedom</h1>
+          <h1 className="text-6xl">{query.song}</h1>
 
-          <p className="text-2xl font-bold">Rage Against the Machine</p>
+          <p className="text-2xl font-bold">{query.album}</p>
 
-          <p>Rage Against the Machine</p>
+          <p>{query.album}</p>
         </div>
 
           <p className="text-4xl text-left w-full">{query.amount} sats</p>

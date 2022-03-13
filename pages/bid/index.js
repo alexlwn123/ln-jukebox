@@ -7,8 +7,11 @@ import Link from "next/link";
 
 export default function Index() {
   const [bidDefined, setBidDefined] = React.useState(false);
-  
   const [amount, setAmount] = React.useState(0);
+  const [song, setSong] = React.useState('Freedom');
+  const [artist, setArtist] = React.useState('Rage Against the Machine');
+  const [album, setAlbum] = React.useState('Rage Against the Machine');
+  const [songId, setSongId] = React.useState('xxxx-xxxx-xxxx-xxxx');
   
   function handleSatsInput(e){
     if(e > 0) setBidDefined(true);
@@ -26,16 +29,16 @@ export default function Index() {
         <Nav text="Search" />
         
         <div className="drop-shadow-md space-y-2 w-full text-left">
-          <h1 className="text-6xl">Freedom</h1>
+          <h1 className="text-6xl">{song}</h1>
           
-          <p className="text-2xl font-bold">Rage Against the Machine</p>
+          <p className="text-2xl font-bold">{artist}</p>
           
-          <p>Rage Against the Machine</p>
+          <p>{album}</p>
         </div>
         
         <InputNumber value="" parentCallback={handleSatsInput} />
         
-        <Link href={{pathname: "/checkout", query: {amount}}} passHref>
+        <Link href={{pathname: "/checkout", query: {amount, song, artist, album, songId}}} passHref>
           <Button text="Checkout" icon="CartIcon" active={bidDefined} />
         </Link>
       </main>
