@@ -24,7 +24,6 @@ export default function Index(props) {
       
     }
   }, [query])
-  
 
   return (
     <div className="h-screen w-full">
@@ -40,7 +39,7 @@ export default function Index(props) {
         <div className="drop-shadow-md space-y-2 w-full text-left">
           <h1 className="text-6xl">{query.song}</h1>
 
-          <p className="text-2xl font-bold">{query.album}</p>
+          <p className="text-2xl font-bold">{query.artist}</p>
 
           <p>{query.album}</p>
         </div>

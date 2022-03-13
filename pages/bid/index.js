@@ -4,19 +4,31 @@ import InputNumber from "../../components/InputNumber";
 import Button from "../../components/Button";
 import React from "react";
 import Link from "next/link";
+import {useRouter} from "next/router";
 
 export default function Index() {
   const [bidDefined, setBidDefined] = React.useState(false);
   const [amount, setAmount] = React.useState(0);
-  const [song, setSong] = React.useState('Freedom');
-  const [artist, setArtist] = React.useState('Rage Against the Machine');
-  const [album, setAlbum] = React.useState('Rage Against the Machine');
-  const [songId, setSongId] = React.useState('xxxx-xxxx-xxxx-xxxx');
+  const [song, setSong] = React.useState('---');
+  const [artist, setArtist] = React.useState('---');
+  const [album, setAlbum] = React.useState('---');
+  const [songId, setSongId] = React.useState('');
+  const {query} = useRouter();
   
   function handleSatsInput(e){
     if(e > 0) setBidDefined(true);
     setAmount(e);
   }
+  
+  React.useEffect(()=>{
+    if(query){
+      setSong(query.song);
+      setArtist(query.artist);
+      setAlbum(query.album);
+      setSongId(query.id);
+    }
+    return () => {}
+  }, [query]);
   
   return (
     <div className="h-screen w-full">
