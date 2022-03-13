@@ -3,12 +3,16 @@ import Nav from "../../components/Nav";
 import InputNumber from "../../components/InputNumber";
 import Button from "../../components/Button";
 import React from "react";
+import Link from "next/link";
 
 export default function Index() {
   const [bidDefined, setBidDefined] = React.useState(false);
   
+  const [amount, setAmount] = React.useState(0);
+  
   function handleSatsInput(e){
-    if(e.target.value > 0) setBidDefined(true);
+    if(e > 0) setBidDefined(true);
+    setAmount(e);
   }
   
   return (
@@ -31,7 +35,9 @@ export default function Index() {
         
         <InputNumber value="" parentCallback={handleSatsInput} />
         
-        <Button text="Checkout" icon="CartIcon" active={bidDefined} />
+        <Link href={{pathname: "/checkout", query: {amount}}} passHref>
+          <Button text="Checkout" icon="CartIcon" active={bidDefined} />
+        </Link>
       </main>
     </div>
   )

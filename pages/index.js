@@ -70,7 +70,7 @@ export default function Home() {
           : ''}
   
           {!searchActive ?
-          <Button text="Song Queue" icon="MusicNoteIcon" />
+          <Button text="Song Queue" icon="MusicNoteIcon" button />
           : ''}
         </div>
 
