@@ -20,6 +20,7 @@ export default function Index(props) {
   
   const [invoicePaid, setInvoicePaid] = React.useState(false);
   
+  // console.log(query.songFullName)
   
   React.useEffect(() => {
     if(query && query.amount) {
@@ -36,10 +37,12 @@ export default function Index(props) {
   }, [query])
 
   React.useEffect(() => {
+    // console.log('/api/db/queue/add/' + query.songFullName + '/' + query.amount + '/' + query.songUri);
     if(invoiceId && !checkoutComplete) {
       const timer = setInterval(() => {
         setElapsed(elapsed+1);
         console.log(elapsed);
+        console.log(query.songUri)
         fetch('/api/lnd/fetchInvoice/' + invoiceId)
           .then(async (response) => {
             const res = await response.json()
@@ -57,6 +60,12 @@ export default function Index(props) {
     }
     else if(invoicePaid) {
       console.log('invoice is paid mofo')
+      // /api/db/queue/add/[songName]/[bid]/[uri]
+      fetch('/api/db/queue/add/' + query.songFullName + '/' + query.amount + '/' + query.songUri)
+        .then(async (response) => {
+          const res = await response.json()
+          console.log(res)
+        });
       setCheckoutComplete(true);
     }
     

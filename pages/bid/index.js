@@ -22,6 +22,7 @@ export default function Index() {
   
   React.useEffect(()=>{
     if(query){
+      console.log(query);
       setSong(query.song);
       setArtist(query.artist);
       setAlbum(query.album);
@@ -50,7 +51,7 @@ export default function Index() {
         
         <InputNumber value="" parentCallback={handleSatsInput} />
         
-        <Link href={{pathname: "/checkout", query: {amount, song, artist, album, songId}}} passHref>
+        <Link href={{pathname: "/checkout", query: {amount, song, artist, album, songFullName: query.songFullName, songUri: query.songUri}}} passHref>
           <Button text="Checkout" icon="CartIcon" active={bidDefined} />
         </Link>
       </main>

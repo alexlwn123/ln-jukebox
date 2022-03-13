@@ -1,5 +1,6 @@
 import {db}from '../../../../../firebase/db'
 
+// /api/db/queue/add/[songName]/[bid]/[uri]
 export default async function handler(req, res) {
   const [songName, bid, spotifyUri] = req.query.params;
   const docRef = db.collection('song-queue').doc(songName);
