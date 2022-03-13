@@ -1,6 +1,6 @@
-import Head from 'next/head'
+import Head from 'next/head';
 // import { requestInvoice } from '../serviceRequests/Voltage'
-import { MusicNoteIcon } from '@heroicons/react/outline'
+import { MusicNoteIcon } from '@heroicons/react/outline';
 import PlebPartyLogo from '../components/PlebPartyLogo';
 import React from "react";
 import styles from '../styles/Home.module.scss'
