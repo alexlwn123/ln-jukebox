@@ -33,9 +33,9 @@ export default function Index() {
       <main className="flex flex-row">
         <div className="basis-6/12 h-screen">
           <div className="bg-none">
-            <p>Add your song</p>
+            {/* <p>Add your song</p>
             <img src="pleb-fm-qr.png" alt="QR for pleb.fm" />
-            <p>pleb.fm</p>
+            <p>pleb.fm</p> */}
           </div>
           
           <video className="w-full h-screen object-cover" loop autoPlay muted>
