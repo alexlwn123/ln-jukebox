@@ -1,11 +1,11 @@
 import {MusicNoteIcon} from "@heroicons/react/outline";
-import {CartIcon, CopyIcon} from "@bitcoin-design/bitcoin-icons-react/outline";
+import {CartIcon, CopyIcon, KeyIcon} from "@bitcoin-design/bitcoin-icons-react/outline";
 import Icon from "../components/Icon";
 import React from "react";
 
 export default function Button(props){
   const components = {
-    CartIcon, MusicNoteIcon, CopyIcon
+    CartIcon, MusicNoteIcon, CopyIcon, KeyIcon
   }
   
   const ComponentName = components[ props.icon ];

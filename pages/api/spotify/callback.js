@@ -1,4 +1,5 @@
 import {btoa} from 'next/dist/server/web/sandbox/polyfills';
+import querystring from 'querystring';
 
 export default function handler(req, res) {
     if(req.query && req.query.code) {
@@ -21,8 +22,11 @@ export default function handler(req, res) {
         fetch("https://accounts.spotify.com/api/token", requestOptions)
             .then(response => response.text())
             .then(result => {
-                console.log(result)
-                res.status(200).json(result)
+                let json = JSON.parse(result)
+                res.redirect('/?' +
+                  querystring.stringify({
+                      auth_result: result
+                  }));
             })
             .catch(error => {
                 console.log('error', error)
