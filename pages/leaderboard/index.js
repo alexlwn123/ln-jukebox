@@ -12,13 +12,11 @@ export default function Index() {
 
   React.useEffect( async ()=> {
     if(playlist.length === 0) {
-      fetch('/api/db/song/list')
+      fetch('/api/db/queue/100')
         .then(async (response) => {
           const res = await response.json()
-          console.log(res)
-          setPlaylist(res)
-          console.log('playlist is')
-          console.log(playlist)
+          let sortedPlaylist = res.sort((a,b) => b.bid - a.bid)
+          setPlaylist(sortedPlaylist)
         });
     }
     return ()=>{}
@@ -51,7 +49,7 @@ export default function Index() {
   
   React.useEffect(()=> {
     const spotify = document.getElementById('spotify')
-    
+
     const isEmpty = (value) => [null, undefined, 'undefined', 'NaN', '', NaN].includes(expiry);
 
     // Check for outdated token
@@ -118,11 +116,9 @@ export default function Index() {
           
           {playlist.length > 0 ?
             playlist.map((entry, index) => {
-              let [artist, song] = entry.songName.split('_');
-              artist = artist.replaceAll('-', ' ');
-              song = song.replaceAll('-', ' ')||song;
+              let [song, artist] = entry.songName.split(' - ');
               return <PlaylistItem key={index} artist={artist} song={song} album={entry.album}
-                                   id={entry.id} amount={entry.amount}/>
+                                   id={entry.id} amount={entry.bid}/>
             })
           :''}
         </div>

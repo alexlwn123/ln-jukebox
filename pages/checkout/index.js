@@ -59,7 +59,6 @@ export default function Index(props) {
       }, 1000);
     }
     else if(invoicePaid) {
-      console.log('invoice is paid mofo')
       // /api/db/queue/add/[songName]/[bid]/[uri]
       console.log(`/api/db/queue/add/${query.songFullName}/${query.amount}/${query.songUri}`)
       fetch(`/api/db/queue/add/${query.songFullName}/${query.amount}/${query.songUri}`)
@@ -120,8 +119,7 @@ export default function Index(props) {
         <p className="text-4xl w-full text-center">Payment Complete</p>
         
         <p className="text-xl font-light drop-shadow-md">
-          {query.song} by {query.artist} has been added to the queue.
-          There <span> {songsAhead > 1 || songsAhead === 0 ? 'are' : 'is'} {songsAhead} {songsAhead > 1 || songsAhead === 0 ? 'songs' : 'song'}</span> ahead of it.
+          {query.song} by {query.artist} has been added to the queue!
         </p>
 
         <Button text="Song Queue" icon="MusicNoteIcon" href="/leaderboard" />

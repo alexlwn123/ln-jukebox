@@ -99,7 +99,7 @@ export default function Home() {
         {searchActive && searchResults && searchResults.tracks && searchResults.tracks.items ?
         <div>
           {searchResults.tracks.items.map((result, index) => {
-            return <SearchResult key={index} artist={result.artists[0].name} song={result.name} album={result.album.name} id={result.id} songUri={result.songUri} songFullName={result.songName} />
+            return <SearchResult key={index} artist={result.artists[0].name} song={result.name} album={result.album.name} id={result.id} songUri={result.uri} songFullName={result.name + " - " + result.artists[0].name} />
           })}
         </div>
         : ''}
