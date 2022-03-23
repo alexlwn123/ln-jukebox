@@ -21,6 +21,4 @@ export default function handler(req, res) {
             redirect_uri: process.env.SPOTIFY_REDIRECT_URI,
             state: state
         }));
-
-    res.status(200).json({ name: 'John Doe' })
 }
