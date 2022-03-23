@@ -22,7 +22,8 @@ export default function Home() {
       sessionStorage.setItem('spotify_access_token', json.access_token)
       sessionStorage.setItem('spotify_refresh_token', json.refresh_token)
       let time = new Date();
-      sessionStorage.setItem('spotify_token_expiry', time.getTime() + json.expires_in)
+      let expiry = new Date(((time.getTime()/1000) + json.expires_in)*1000);
+      sessionStorage.setItem('spotify_token_expiry', expiry.getTime())
     }
     
     const isEmpty = (value) => [null, undefined, 'undefined', 'NaN', '', NaN].includes(expiry);
@@ -91,7 +92,7 @@ export default function Home() {
           : ''}
   
           {!searchActive ?
-          <Button text="Song Queue" icon="MusicNoteIcon" button />
+          <Button text="Song Queue" icon="MusicNoteIcon" href="/leaderboard" />
           : ''}
         </div>
 

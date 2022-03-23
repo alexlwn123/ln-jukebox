@@ -7,6 +7,8 @@ import Button from '../../components/Button';
 
 export default function Index() {
   const [playlist, setPlaylist] = React.useState([]);
+  const [spotifyToken, setSpotifyToken] = React.useState('');
+  const [showAdminTray, setShowAdminTray] = React.useState(false);
 
   React.useEffect( async ()=> {
     if(playlist.length === 0) {
@@ -33,6 +35,43 @@ export default function Index() {
     return ()=>{}
   }
   
+  function addAuth(){
+    const spotify = document.getElementById('spotify')
+    let message = {
+      action: 'addAuth',
+      access_token: sessionStorage.getItem('spotify_access_token')
+    }
+    spotify.contentWindow.postMessage(message, '*')
+  }
+  
+  function handleAdminBtn(){
+    let hidden = showAdminTray;
+    setShowAdminTray( !hidden );
+  }
+  
+  React.useEffect(()=> {
+    const spotify = document.getElementById('spotify')
+    
+    const isEmpty = (value) => [null, undefined, 'undefined', 'NaN', '', NaN].includes(expiry);
+
+    // Check for outdated token
+    let expiry = sessionStorage.getItem('spotify_token_expiry');
+    expiry = isEmpty(expiry) ? parseInt(expiry) : expiry;
+    let time = new Date();
+
+    if (time.getTime() > expiry) {
+      alert('time is ' + time.getTime() + '. expiry is ' + expiry)
+      window.location = '/api/spotify/refresh_token?refresh_token=' + sessionStorage.getItem('spotify_refresh_token')
+    }
+
+    if(!isEmpty(sessionStorage.getItem('spotify_access_token'))) {
+      setSpotifyToken(sessionStorage.getItem('spotify_access_token'))
+      spotify.contentWindow.postMessage({action: 'addAuth', access_token: sessionStorage.getItem('spotify_access_token')}, '*')
+      addAuth()
+    }
+    return ()=>{}
+  });
+  
   return (
     <div className="h-screen">
       <Head>
@@ -49,14 +88,25 @@ export default function Index() {
             <p className="drop-shadow-md">pleb.fm</p>
           </div>
           
-          <video className="w-full h-screen object-cover" loop autoPlay muted>
+          <video className="w-full h-screen object-cover hidden" loop autoPlay muted>
             <source src="ln-jukebox-hero.mp4" type="video/mp4" />
           </video>
 
           <iframe src="spotify-player.html" className="w-md h-md absolute bottom-0 left-0 hidden" id="spotify" />
           
-          <div className="absolute bottom-2 left-2 flex flex-row">
-            <Button text="Play" button icon="CopyIcon" onClick={playBtn} size="small" />
+          <div className="absolute bottom-2 left-2">
+            {showAdminTray ?
+              <div className="flex flex-row space-x-2">
+                <Button text="Play" button icon="PlayIcon" onClick={playBtn} size="sm"/>
+                <Button text="Auth" button icon="ArrowUpIcon" onClick={addAuth} size="sm"/>
+                <Button text="Login" icon="KeyIcon" href="/api/spotify/auth/" size="sm" />
+                <Button text="" button icon="ArrowLeftIcon" onClick={handleAdminBtn} size="sm" />
+              </div>
+            :
+              <div>
+                <Button text="" button icon="ArrowRightIcon" onClick={handleAdminBtn} size="xs" />
+              </div>
+            }
           </div>
           
         </div>
