@@ -119,7 +119,7 @@ export default function Index(props) {
         <p className="text-4xl w-full text-center">Payment Complete</p>
         
         <p className="text-xl font-light drop-shadow-md">
-          Freedom by Rage Against the Machine has been added to the queue.
+          {query.song} by {query.artist} has been added to the queue.
           There <span> {songsAhead > 1 || songsAhead === 0 ? 'are' : 'is'} {songsAhead} {songsAhead > 1 || songsAhead === 0 ? 'songs' : 'song'}</span> ahead of it.
         </p>
 
