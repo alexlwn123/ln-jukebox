@@ -20,11 +20,11 @@ This is the first crowd-funded DJ powered by bitcoin lightning! It's an ongoing 
  - GCP Firestore to store songs
 
 ## TODO
- - Fix Leaderboard
- - Fix (implemnt) Music Player
- - Fix lnpayments on prod 
- - Improve mobile UX
- - Actually secure it
+ - [ ] Fix Leaderboard
+ - [ ] Fix (implemnt) Music Player
+ - [ ] Fix lnpayments on prod 
+ - [ ] Improve mobile UX
+ - [x] Actually secure it
  
  
 ---- 
