@@ -7,21 +7,32 @@ import Button from '../../components/Button';
 
 export default function Index() {
   const [playlist, setPlaylist] = React.useState([]);
+  const [unsortedPlaylist, setUnsortedPlaylist] = React.useState([]);
   const [spotifyToken, setSpotifyToken] = React.useState('');
   const [showAdminTray, setShowAdminTray] = React.useState(false);
+  const [elapsed, setElapsed] = React.useState(1);
 
-  React.useEffect( async ()=> {
-    if(playlist.length === 0) {
-      fetch('/api/db/queue/100')
-        .then(async (response) => {
-          const res = await response.json()
+  React.useEffect(()=> {
+    const timer = setInterval(() => {
+      checkSongs();
+    }, 2000);
+    return () => clearInterval(timer);
+  });
+  
+  function checkSongs(){
+    setElapsed(elapsed+1);
+    console.log(elapsed);
+    fetch('/api/db/queue/100')
+      .then(async (response) => {
+        const res = await response.json()
+        if(res !== unsortedPlaylist) {
           let sortedPlaylist = res.sort((a,b) => b.bid - a.bid)
           setPlaylist(sortedPlaylist)
-        });
-    }
-    return ()=>{}
-  }, [playlist]);
-
+          setUnsortedPlaylist(res)
+        }
+      });
+  }
+  
   function playBtn(e){
     const spotify = document.getElementById('spotify')
 
