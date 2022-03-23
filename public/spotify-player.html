@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Spotify Web Playback SDK Quick Start</title>
+</head>
+<body>
+<button id="togglePlay">Toggle Play</button>
+<button id="nextTrack">Next</button>
+
+<script src="https://sdk.scdn.co/spotify-player.js"></script>
+<script>
+  window.onSpotifyWebPlaybackSDKReady = () => {
+    const token = 'YOUR_AUTH_TOKEN_HERE';
+    const player = new Spotify.Player({
+      name: 'NextJS - Web Playback SDK Quick Start Player',
+      getOAuthToken: cb => { cb(token); },
+      volume: 0.5
+    });
+
+    // Ready
+    player.addListener('ready', ({ device_id }) => {
+      console.log('Ready with Device ID', device_id);
+    });
+
+    // Not Ready
+    player.addListener('not_ready', ({ device_id }) => {
+      console.log('Device ID has gone offline', device_id);
+    });
+
+    player.addListener('initialization_error', ({ message }) => {
+      console.error(message);
+    });
+
+    player.addListener('authentication_error', ({ message }) => {
+      console.error(message);
+    });
+
+    player.addListener('account_error', ({ message }) => {
+      console.error(message);
+    });
+
+    document.getElementById('togglePlay').onclick = function() {
+      player.togglePlay();
+    };
+    
+    document.getElementById('nextTrack').onclick = function() {
+      player.nextTrack().then(() => {
+        console.log('Skipped to next track!');
+      });
+    }
+
+    window.addEventListener('message', function (e) {
+      // console.log(e)
+      if(e.data.action && e.data.action === 'play') {
+        console.log(e.data);
+        player.togglePlay();
+      }
+    });
+
+    player.connect();
+  }
+
+  
+</script>
+</body>
+</html>
