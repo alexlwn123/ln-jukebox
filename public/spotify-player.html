@@ -53,6 +53,7 @@
 
       window.addEventListener('message', function (e) {
         if(e.data.action && e.data.action === 'play') {
+          console.log('play')
           player.togglePlay();
         }
       });

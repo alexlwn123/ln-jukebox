@@ -66,8 +66,6 @@ export default function Index() {
 
     if(!isEmpty(sessionStorage.getItem('spotify_access_token'))) {
       setSpotifyToken(sessionStorage.getItem('spotify_access_token'))
-      spotify.contentWindow.postMessage({action: 'addAuth', access_token: sessionStorage.getItem('spotify_access_token')}, '*')
-      addAuth()
     }
     return ()=>{}
   });
@@ -88,7 +86,7 @@ export default function Index() {
             <p className="drop-shadow-md">pleb.fm</p>
           </div>
           
-          <video className="w-full h-screen object-cover hidden" loop autoPlay muted>
+          <video className="w-full h-screen object-cover" loop autoPlay muted>
             <source src="ln-jukebox-hero.mp4" type="video/mp4" />
           </video>
 
