@@ -10,54 +10,63 @@
 <script src="https://sdk.scdn.co/spotify-player.js"></script>
 <script>
   window.onSpotifyWebPlaybackSDKReady = () => {
-    const token = 'YOUR_AUTH_TOKEN_HERE';
-    const player = new Spotify.Player({
-      name: 'NextJS - Web Playback SDK Quick Start Player',
-      getOAuthToken: cb => { cb(token); },
-      volume: 0.5
-    });
-
-    // Ready
-    player.addListener('ready', ({ device_id }) => {
-      console.log('Ready with Device ID', device_id);
-    });
-
-    // Not Ready
-    player.addListener('not_ready', ({ device_id }) => {
-      console.log('Device ID has gone offline', device_id);
-    });
-
-    player.addListener('initialization_error', ({ message }) => {
-      console.error(message);
-    });
-
-    player.addListener('authentication_error', ({ message }) => {
-      console.error(message);
-    });
-
-    player.addListener('account_error', ({ message }) => {
-      console.error(message);
-    });
-
-    document.getElementById('togglePlay').onclick = function() {
-      player.togglePlay();
-    };
+    let token = null;
     
-    document.getElementById('nextTrack').onclick = function() {
-      player.nextTrack().then(() => {
-        console.log('Skipped to next track!');
+    function initPlayer(){
+      const player = new Spotify.Player({
+        name: 'PlebFM',
+        getOAuthToken: cb => { cb(token); },
+        volume: 0.5
       });
+
+      // Ready
+      player.addListener('ready', ({ device_id }) => {
+        console.log('Ready with Device ID', device_id);
+      });
+
+      // Not Ready
+      player.addListener('not_ready', ({ device_id }) => {
+        console.log('Device ID has gone offline', device_id);
+      });
+
+      player.addListener('initialization_error', ({ message }) => {
+        console.error(message);
+      });
+
+      player.addListener('authentication_error', ({ message }) => {
+        console.error(message);
+      });
+
+      player.addListener('account_error', ({ message }) => {
+        console.error(message);
+      });
+
+      document.getElementById('togglePlay').onclick = function() {
+        player.togglePlay();
+      };
+
+      document.getElementById('nextTrack').onclick = function() {
+        player.nextTrack().then(() => {
+          console.log('Skipped to next track!');
+        });
+      }
+
+      window.addEventListener('message', function (e) {
+        if(e.data.action && e.data.action === 'play') {
+          console.log('play')
+          player.togglePlay();
+        }
+      });
+
+      player.connect();
     }
 
     window.addEventListener('message', function (e) {
-      // console.log(e)
-      if(e.data.action && e.data.action === 'play') {
-        console.log(e.data);
-        player.togglePlay();
+      if(e.data.action && e.data.action === 'addAuth') {
+        token = e.data.access_token;
+        initPlayer();
       }
     });
-
-    player.connect();
   }
 
   
